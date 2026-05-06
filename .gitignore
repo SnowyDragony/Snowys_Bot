@@ -1,0 +1,8 @@
+.git/
+.idea/
+.vs/
+build/
+.env
+out/
+MyBot/miscelaneous.txt
+MyBot/config.txt
