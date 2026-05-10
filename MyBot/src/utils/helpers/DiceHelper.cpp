@@ -5,17 +5,17 @@
 static std::string convert_dice_result_to_emote(int dice_result) {
 	switch (dice_result) {
 	case 1:
-		return "<:DiceOne:1502832999790809238>";
+		return "<:DiceOne:1502841380458987660>";
 	case 2:
-		return "<:DiceTwo:1502833001434714252>";
+		return "<:DiceTwo:1502841382266601503>";
 	case 3:
-		return "<:DiceThree:1502833003016097842>";
+		return "<:DiceThree:1502841383436947627>";
 	case 4:
-		return "<:DiceFour:1502833004190634074>";
+		return "<:DiceFour:1502841384724598985>";
 	case 5:
-		return "<:DiceFive:1502833005675151370>";
+		return "<:DiceFive:1502841387886973069>";
 	case 6:
-		return "<:DiceSix:1502833007357067274>";
+		return "<:DiceSix:1502841388969230468>";
 	default:
 		return "Invalid dice result";
 	}
