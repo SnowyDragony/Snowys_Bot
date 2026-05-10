@@ -28,7 +28,8 @@ dpp::task<void> handle_dice_command(const dpp::slashcommand_t& event, dpp::clust
 		num_dice = 2;
 		
 	int correct_answers = 0;
-
+	dpp::message results_message = create_results_message();
+	
 	if (verbose) LOG_INFO("Sending initial response with number of dice rolls selected");
 	dpp::message initial_response = create_initial_response(num_rolls, num_dice);
 	co_await event.co_reply(initial_response);
@@ -113,17 +114,20 @@ dpp::task<void> handle_dice_command(const dpp::slashcommand_t& event, dpp::clust
 				message = edit_dice_message_fail(message, total_result, user_guess);
 				co_await bot.co_message_edit(message);
 			}
+			results_message = edit_results_message_while_playing(results_message, dice_results, num_dice, total_result, user_guess);
 		}
 		catch (...) {
 			if (verbose) LOG_INFO("User response for roll number " + std::to_string(i) + " is not a valid integer: '" + user_reply + "'.");
 			continue_rolls = false;
 		}
+		
+		co_await bot.co_sleep(2);
 	}
 
 	free(dice_results);
 
 	if (verbose) LOG_INFO("Final score: " + std::to_string(correct_answers) + " out of " + std::to_string(num_rolls));
-	dpp::message results_message = create_result_message(correct_answers, num_rolls);
+	results_message = final_edit_results_message(results_message, correct_answers, num_rolls);
 	results_message.channel_id = event.command.channel_id;
 	co_await bot.co_message_create(results_message);
 
